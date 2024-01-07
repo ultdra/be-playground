@@ -3,7 +3,7 @@ const app = express();
 const dotenv = require("dotenv");
 
 // These are the routes that will be used
-const authRoute = require("./routes/auth");
+const authRoute = require("./routes/auth.route");
 
 dotenv.config();
 
