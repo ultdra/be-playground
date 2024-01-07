@@ -6,6 +6,7 @@ const dotenv = require("dotenv");
 const router = require("./routes");
 const passport = require("passport");
 const session = require("express-session");
+const flash = require("connect-flash");
 
 dotenv.config();
 
@@ -17,6 +18,7 @@ app.use(
     saveUninitialized: true,
   })
 );
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.json());

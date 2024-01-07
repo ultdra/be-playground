@@ -12,7 +12,15 @@ router.post(
   "/Register",
   passport.authenticate("local-signup", {
     successRedirect: "/auth/RegisterSuccess",
+    successFlash: {
+      type: "messageSuccess",
+      message: "Successful registeration!",
+    },
     failureRedirect: "/auth/RegisterFailed",
+    failureFlash: {
+      type: "messageFailure",
+      message: "Failed registeration!",
+    },
   })
 );
 
