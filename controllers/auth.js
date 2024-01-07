@@ -6,8 +6,8 @@ const LocalStrategy = require("passport-local").Strategy;
 passport.use(
   "local-signup",
   new LocalStrategy(
-    { username: "email", password: "password", done: true },
-    (email, password, done) => {
+    { username: "email", password: "password", passReqToCallback: true },
+    (req, email, password, done) => {
       console.log("etner here");
       let newUser = new UserSchema({
         username: email,
@@ -19,4 +19,14 @@ passport.use(
   )
 );
 
-module.exports = {};
+const RegisterUser = async (req, res) => {
+  const { username, password } = req.body;
+  let newUser = {};
+  newUser.username = username;
+  newUser.salt = await bcrypt.genSalt(10);
+  newUser.password = await bcrypt.hash(password, newUser.salt);
+  console.log(newUser);
+  res.redirect("/auth/RegisterSuccess");
+};
+
+module.exports = { RegisterUser };

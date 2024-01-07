@@ -8,21 +8,7 @@ router.get("/", (req, res) => {
   res.send("this is the auth route");
 });
 
-router.post(
-  "/Register",
-  passport.authenticate("local-signup", {
-    successRedirect: "/auth/RegisterSuccess",
-    successFlash: {
-      type: "messageSuccess",
-      message: "Successful registeration!",
-    },
-    failureRedirect: "/auth/RegisterFailed",
-    failureFlash: {
-      type: "messageFailure",
-      message: "Failed registeration!",
-    },
-  })
-);
+router.post("/Register", RegisterUser);
 
 router.get("/test", (req, res) => {
   res.send("this is the auth test route");
