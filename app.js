@@ -3,16 +3,30 @@ const app = express();
 const dotenv = require("dotenv");
 
 // These are the routes that will be used
-const authRoute = require("./routes/auth.route");
+const router = require("./routes");
+const passport = require("passport");
+const session = require("express-session");
 
 dotenv.config();
+
+app.use(
+  session({
+    secret: "sampletestkey",
+    cookie: {},
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(express.json());
 
 app.get("/", (req, res) => {
   res.send("Root Page");
 });
 
 // Used routes
-app.use("/auth", authRoute);
+app.use("/", router);
 
 const port = process.env.LOCALPORT || 3000;
 
