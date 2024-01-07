@@ -1,17 +1,22 @@
-const http = require("http");
+const express = require("express");
+const app = express();
 const dotenv = require("dotenv");
+
+// These are the routes that will be used
+const authRoute = require("./routes/auth");
 
 dotenv.config();
 
-const server = http.createServer((req, res) => {
-  res.writeHead(200, { "Content-Type": "text/html" });
-  res.write("<h1>Hello, Node.js HTTP Server!</h1>");
-  res.end();
+app.get("/", (req, res) => {
+  res.send("Root Page");
 });
+
+// Used routes
+app.use("/auth", authRoute);
 
 const port = process.env.LOCALPORT || 3000;
 
-server.listen(port, () => {
+app.listen(port, () => {
   console.log(
     `Node.js HTTP server is running on http://${process.env.LOCALHOST}:${process.env.LOCALPORT}`
   );
